@@ -1,0 +1,71 @@
+<div class="register">
+  <form
+    #userForm="ngForm"
+    class="custom-form"
+    method="post"
+    (ngSubmit)="register(userForm)"
+    name="teenageMutant"
+  >
+    <h1>Registrarse</h1>
+
+    <input
+      [(ngModel)]="usuario.usuario"
+      name="usuario"
+      placeholder="Usuario"
+      required="required"
+    />
+    <input
+      type="email"
+      [(ngModel)]="usuario.correo"
+      name="correo"
+      placeholder="Correo"
+      required="required"
+    />
+    <input
+      type="password"
+      [(ngModel)]="usuario.password"
+      name="password"
+      placeholder="Contraseña"
+      required="required"
+      *ngIf="editar == false"
+    />
+    <h3>Selecciona tu edad</h3>
+    <div>
+      <select
+        class="cf"
+        (change)="selectOption(1)"
+        [(ngModel)]="usuario.edad"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <option name="edad" [value]="item" *ngFor="let item of items">
+          {{ item }}
+        </option>
+      </select>
+    </div>
+    <p *ngFor="let item of gene">
+      {{ item.viewValue }}
+      <input
+        type="radio"
+        value="{{ item.value }}"
+        name="gender"
+        [checked]="item.statu"
+        (click)="change(item.value)"
+      />
+      <!-- Femenino
+      <input type="radio" value="f" name="gender" ngModel />
+      -->
+    </p>
+    <lib-toastify-toast-container></lib-toastify-toast-container>
+    <div *ngIf="usuario.genero == null">Gender required.</div>
+    <input
+      [(ngModel)]="usuario.fechaden"
+      type="datetime-local"
+      id="birthdaytime"
+      name="fechaden"
+    />
+    <button class="re" type="submit">{{ Registrarse }}</button>
+    <button class="in" type="submit" *ngIf="editar == false" (click)="log()">
+      Iniciar Sesion
+    </button>
+  </form>
+</div>
